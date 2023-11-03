@@ -1,11 +1,6 @@
 const mongoose = require("mongoose")
 const categorySchema = mongoose.Schema({
 
-    author: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Author'
-    },
-
     title: {
         type: String,
         enum: ['Horror', 'Mystery', 'Romance', 'Autre']
@@ -14,4 +9,4 @@ const categorySchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("Category", categorySchema)
+module.exports = mongoose.model("category", categorySchema)

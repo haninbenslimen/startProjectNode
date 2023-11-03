@@ -36,7 +36,7 @@ const fetchBooks = (req, res) => {
 const getBooksById = (req, res) => {
     Book.findOne({ _id: req.params.id })
         .populate('author')
-        .populate('category')
+        .populate('categories')
         .then((book) => {
             if (!book) {
                 res.status(404).json({

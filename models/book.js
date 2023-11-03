@@ -9,14 +9,14 @@ const bookSchema = mongoose.Schema({
 
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Author' //n3ayetlo fel controller 
+        ref: 'author' //n3ayetlo fel controller 
     },
 
     //snn book:[{}] ds  catégorie 
 
     categories: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'category'
     }]
 })
 

@@ -5,6 +5,7 @@ const bookRoutes = require("./routes/book")
 const userRoutes = require("./routes/user")
 const etudiantRoutes = require("./routes/etudiant")
 const authorRoutes = require("./routes/author")
+const categoryRoutes = require("./routes/category")
 
 
 const app = express()
@@ -59,10 +60,12 @@ app.use("/api/books", bookRoutes)
 app.use("/api/auth", userRoutes)
 app.use("/api/etudiants", etudiantRoutes)
 app.use("/api/authors", authorRoutes)
-    // app.get("/api/tasks/:id", (req, res) => {
-    //     console.log(req.params.id)
-    //     res.send(req.params.id)
-    // })
+app.use("/api/categories", categoryRoutes)
+
+// app.get("/api/tasks/:id", (req, res) => {
+//     console.log(req.params.id)
+//     res.send(req.params.id)
+// })
 
 // app.post("/api/tasks/", (req, res) => {
 //     console.log(req.body)
