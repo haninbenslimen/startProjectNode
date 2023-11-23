@@ -33,5 +33,5 @@ userSchema.methods.toPublic = function() {
         return user
     }
     // Utiliser mongoose-unique-validator pour valider l'email
-userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator)
 module.exports = mongoose.model("User", userSchema)

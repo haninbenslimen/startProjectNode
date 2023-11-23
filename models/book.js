@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const idValidator = require('mongoose-id-validator')
 
 const bookSchema = mongoose.Schema({
     title: { type: String, required: true },
@@ -20,7 +21,8 @@ const bookSchema = mongoose.Schema({
     }]
 })
 bookSchema.statics.findByAuthor = async function(authorId) {
-    return this.find({ author: authorId });
-}
-
+        return this.find({ author: authorId });
+    }
+    // Utiliser mongoose-id-validator pour valider la relation entre livre et auteur
+bookSchema.plugin(idValidator)
 module.exports = mongoose.model("Book", bookSchema)
