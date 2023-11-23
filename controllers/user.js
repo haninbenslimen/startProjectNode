@@ -14,8 +14,7 @@ exports.signup = (req, res, next) => {
             })
             user.save()
                 .then((response) => {
-                    const newUser = response.toObject()
-                    delete newUser.password
+                    const newUser = response.toPublic()
                     res.status(201).json({
                         user: newUser,
                         message: "user created"
