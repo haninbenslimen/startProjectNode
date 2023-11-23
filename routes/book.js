@@ -1,9 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const bookController = require("../controllers/book")
+const validation = require("../middlewares/validation")
 
 
-router.post("/", bookController.addBooks)
+// router.post("/", bookController.addBooks)
+router.post("/", validation.validateBookCreation, bookController.createBook);
 
 router.get("/", bookController.fetchBooks)
 
