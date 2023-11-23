@@ -10,6 +10,16 @@ const userSchema = mongoose.Schema({
         enum: ["admin", "user"],
         default: "admin"
     }
+}, {
+    virtuals: {
+        name: {
+            get() {
+                return this.firstName + ' ' + this.lastName
+            }
+
+        }
+
+    }
 })
 
 
