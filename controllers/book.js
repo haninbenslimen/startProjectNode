@@ -35,14 +35,18 @@ const fetchBooks = (req, res) => {
 
 const getBooksById = (req, res) => {
     Book.findOne({ _id: req.params.id })
-        .populate('author')
-        .populate('categories')
+        .populate('author') //le champ author in schema book c'est pas le nom de model
+        .populate('categories') //le champ categories in schema book 
         .then((book) => {
             if (!book) {
                 res.status(404).json({
                     message: "Objet non trouvé",
                 })
             } else {
+                //-- -- -  exple to use Uppercase 
+                // const uppercaseAuthor = book.author ? book.author.name.toUpperCase() : null
+                //----------
+
                 res.status(200).json({
                     model: book,
                     message: "Objet trouvé",
@@ -56,6 +60,35 @@ const getBooksById = (req, res) => {
             })
         })
 }
+
+
+
+// this method with async await
+
+
+// const getBooksById = async(req, res) => {
+//     try {
+//         const book = await Book.findOne({ _id: req.params.id })
+//             .populate('author') // le champ author in schema book n'est pas le nom du model
+//             .populate('categories'); // le champ categories in schema book 
+
+//         if (!book) {
+//             res.status(404).json({
+//                 message: "Objet non trouvé",
+//             });
+//         } else {
+//             res.status(200).json({
+//                 model: book,
+//                 message: "Objet trouvé",
+//             });
+//         }
+//     } catch (error) {
+//         res.status(400).json({
+//             error: error.message,
+//             message: "problème d'extraction",
+//         });
+//     }
+// };
 
 
 const updateBooks = (req, res) => {

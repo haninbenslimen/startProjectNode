@@ -1,26 +1,37 @@
 const express = require("express")
 const { default: mongoose } = require("mongoose")
+
 const taskRoutes = require("./routes/task")
 const bookRoutes = require("./routes/book")
 const userRoutes = require("./routes/user")
 const etudiantRoutes = require("./routes/etudiant")
 const authorRoutes = require("./routes/author")
 const categoryRoutes = require("./routes/category")
+const testRoutes = require("./routes/test")
 
 
 const app = express()
-mongoose
-    .connect(
-        "mongodb+srv://hanin:c1iTmvYZpkbDLQBU@cluster0.cpu80.mongodb.net/ProjetNode", {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        }
-    ).then(() => console.log("Réussie"))
-    .catch((e) => console.log("échouée!!", e))
-    // app.use((req, res, next) => {
-    //     console.log("requete reçue!")
-    //     next()
-    // })
+    //sur mongo local
+mongoose.connect("mongodb://127.0.0.1:27017/startProjectNode", {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).then(() => console.log("Connection to MongoDB successful!"))
+    .catch((e) => console.log("Connection to MongoDB failed :", e))
+    //------------
+    // mongoose
+    //     .connect(
+    //         "mongodb+srv://hanin:c1iTmvYZpkbDLQBU@cluster0.cpu80.mongodb.net/ProjetNode", {
+    //             useNewUrlParser: true,
+    //             useUnifiedTopology: true
+    //         }
+    //     ).then(() => console.log("Réussie"))
+    //     .catch((e) => console.log("échouée!!", e))
+    //------------
+
+// app.use((req, res, next) => {
+//     console.log("requete reçue!")
+//     next()
+// })
 
 // app.use((req, res, next) => {
 //     res.status(201)
@@ -61,11 +72,11 @@ app.use("/api/auth", userRoutes)
 app.use("/api/etudiants", etudiantRoutes)
 app.use("/api/authors", authorRoutes)
 app.use("/api/categories", categoryRoutes)
-
-// app.get("/api/tasks/:id", (req, res) => {
-//     console.log(req.params.id)
-//     res.send(req.params.id)
-// })
+app.use("/api/tests", testRoutes)
+    // app.get("/api/tasks/:id", (req, res) => {
+    //     console.log(req.params.id)
+    //     res.send(req.params.id)
+    // })
 
 // app.post("/api/tasks/", (req, res) => {
 //     console.log(req.body)

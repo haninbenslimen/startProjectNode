@@ -5,6 +5,8 @@ exports.addAuthor = (req, res) => {
     author.save()
         .then(() => {
             res.status(201).json({
+                //----------test Virtuall fullName --------------
+                // model: author.nationality + ' ' + author.fullName,
                 model: author,
                 message: "created"
             })

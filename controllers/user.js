@@ -36,13 +36,13 @@ exports.login = (req, res, next) => {
             if (!user) {
                 return res.status(401).json({ message: "Login ou mot de passe incorrect" });
             }
-
+            //compare les 2 mots de passes avec bcrypt
             bcrypt.compare(req.body.password, user.password)
                 .then((valid) => {
                     if (!valid) {
                         return res.status(401).json({ message: "Login ou mot de passe incorrect" });
                     }
-
+                    //création de token
                     const token = jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
                         expiresIn: "24h"
                     });
