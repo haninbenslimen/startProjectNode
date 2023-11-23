@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema({
         enum: ["admin", "user"],
         default: "admin"
     }
-}, {
+}, { timestamps: true }, {
     virtuals: {
         name: {
             get() {

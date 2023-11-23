@@ -14,6 +14,7 @@ exports.signup = (req, res, next) => {
             })
             user.save()
                 .then((response) => {
+                    //on faire ici l'appel de la méthode toPublic 
                     const newUser = response.toPublic()
                     res.status(201).json({
                         user: newUser,

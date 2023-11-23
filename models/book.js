@@ -19,5 +19,8 @@ const bookSchema = mongoose.Schema({
         ref: 'category'
     }]
 })
+bookSchema.statics.findByAuthor = async function(authorId) {
+    return this.find({ author: authorId });
+}
 
 module.exports = mongoose.model("Book", bookSchema)
