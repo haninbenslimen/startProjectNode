@@ -1,4 +1,6 @@
 const Joi = require('joi')
+const Book = require("../models/book")
+const Author = require("../models/author")
 
 // Middleware de validation pour la route /signup
 exports.validateSignup = (req, res, next) => {

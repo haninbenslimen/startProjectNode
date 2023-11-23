@@ -24,5 +24,5 @@ bookSchema.statics.findByAuthor = async function(authorId) {
         return this.find({ author: authorId });
     }
     // Utiliser mongoose-id-validator pour valider la relation entre livre et auteur
-bookSchema.plugin(idValidator)
+    // bookSchema.plugin(idValidator)
 module.exports = mongoose.model("Book", bookSchema)
