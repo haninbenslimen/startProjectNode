@@ -13,6 +13,8 @@ router.patch("/:id", bookController.updateBooks)
 
 
 router.get("/:id", bookController.getBooksById)
+router.get("/:id", bookController.getBooksById)
+router.get('/author/:id', bookController.findBooksByAuthor);
 
 router.delete("/:id", bookController.deleteBooks)
 

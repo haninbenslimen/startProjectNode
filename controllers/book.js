@@ -121,7 +121,22 @@ const deleteBooks = (req, res) => {
         .catch((error) => res.status(400).json({ error: error.message }))
 }
 
+
+const findBooksByAuthor = async(req, res) => {
+    try {
+        const authorId = req.params.id
+            //ici on faire l'appel de la méthode statique findByAuthor
+        const books = await Book.findByAuthor(authorId)
+        res.status(200).json(books)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: 'Erreur lors de la recherche des livres par auteur' })
+    }
+}
+
+
 module.exports = {
+    findBooksByAuthor,
     addBooks,
     //addBooks = addBooks meme chose 
     fetchBooks,
