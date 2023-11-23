@@ -1,6 +1,8 @@
 const Book = require("../models/book")
 const Author = require("../models/author")
 const Category = require("../models/category")
+const Joi = require('joi')
+
 
 const addBooks = (req, res) => {
     const book = new Book(req.body)
@@ -134,8 +136,40 @@ const findBooksByAuthor = async(req, res) => {
     }
 }
 
+// Middleware de validation pour la route de création de livre
+const validateBookCreation = async(req, res, next) => {
+    try {
+
+        // Vérifier si l'auteur a des anciens livres
+        const authorId = req.body.author;
+        const existingBooks = await Book.findByAuthor(authorId) // Utilisez la méthode findByAuthor ici
+        if (existingBooks.length === 0) {
+            return res.status(400).json({ error: 'L\'auteur doit avoir écrit d\'autres livres avant de créer celui-ci.' });
+        }
+
+        next();
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur lors de la validation du livre.' });
+    }
+}
+
+// Contrôleur pour la création de livre
+const createBook = async(req, res) => {
+    try {
+        const book = new Book(req.body);
+        await book.save();
+        res.status(201).json({ message: 'Livre créé avec succès.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Erreur lors de la création du livre.' });
+    }
+};
+
 
 module.exports = {
+    validateBookCreation,
+    createBook,
     findBooksByAuthor,
     addBooks,
     //addBooks = addBooks meme chose 
