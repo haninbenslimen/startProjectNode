@@ -22,5 +22,10 @@ const userSchema = mongoose.Schema({
     }
 })
 
+userSchema.methods.toPublic = function() {
+    const user = this.toObject();
+    delete user.password;
+    return user;
+}
 
 module.exports = mongoose.model("User", userSchema)
