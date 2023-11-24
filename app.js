@@ -9,7 +9,9 @@ const authorRoutes = require("./routes/author")
 const categoryRoutes = require("./routes/category")
 const testRoutes = require("./routes/test")
 const eventRoutes = require("./routes/event")
-
+const SwaggerJsdoc = require("swagger-jsdoc")
+const swaggerUi = require("swagger-ui-express")
+const swaggerJSDoc = require("swagger-jsdoc")
 const app = express()
     //sur mongo local
 mongoose.connect("mongodb://127.0.0.1:27017/startProjectNode", {
@@ -65,6 +67,65 @@ app.use((req, res, next) => {
 
 app.use(express.json()) //bech req.body mayjich feregh 
 
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Todos Express API with Swagger",
+            version: "0.1.0",
+            description: "This is a simple CRUD API application",
+            contact: {
+                name: "Hanine Ben Slimene",
+                url: "",
+                email: "haninebenslimene@gmail.com",
+            },
+        },
+        servers: [{
+            url: "http://localhost:5000/api",
+            description: "Development server",
+        }, ],
+        components: {
+            responses: {
+                200: {
+                    description: "Success",
+                },
+                400: {
+                    description: "Bad request. You may need to verify your information.",
+                },
+                401: {
+                    description: "Unauthorized request, you need additional privileges",
+                },
+                403: {
+                    description: "Forbidden request, you must login first. See /auth/login",
+                },
+                404: {
+                    description: "Object not found",
+                },
+                422: {
+                    description: "Unprocessable entry error, the request is valid but the server refused to process it",
+                },
+                500: {
+                    description: "Unexpected error, maybe try again later",
+                },
+            },
+
+            securitySchemes: {
+                bearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT",
+                },
+            },
+        },
+        security: [{
+            bearerAuth: [],
+        }, ],
+    },
+    apis: ["./routes/*.js"], //win bech yal9a le reste de doc 
+}
+
+
+
 
 app.use("/api/tasks", taskRoutes)
 app.use("/api/books", bookRoutes)
@@ -76,10 +137,16 @@ app.use("/api/tests", testRoutes)
 app.use("/api/events", eventRoutes)
 
 
-// app.get("/api/tasks/:id", (req, res) => {
-//     console.log(req.params.id)
-//     res.send(req.params.id)
-// })
+const specs = swaggerJSDoc(options)
+app.use(
+        "/api-docs",
+        swaggerUi.serve,
+        swaggerUi.setup(specs, { explorer: true })
+    )
+    // app.get("/api/tasks/:id", (req, res) => {
+    //     console.log(req.params.id)
+    //     res.send(req.params.id)
+    // })
 
 // app.post("/api/tasks/", (req, res) => {
 //     console.log(req.body)
