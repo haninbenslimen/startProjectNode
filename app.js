@@ -8,7 +8,7 @@ const etudiantRoutes = require("./routes/etudiant")
 const authorRoutes = require("./routes/author")
 const categoryRoutes = require("./routes/category")
 const testRoutes = require("./routes/test")
-
+const eventRoutes = require("./routes/event")
 
 const app = express()
     //sur mongo local
@@ -73,10 +73,13 @@ app.use("/api/etudiants", etudiantRoutes)
 app.use("/api/authors", authorRoutes)
 app.use("/api/categories", categoryRoutes)
 app.use("/api/tests", testRoutes)
-    // app.get("/api/tasks/:id", (req, res) => {
-    //     console.log(req.params.id)
-    //     res.send(req.params.id)
-    // })
+app.use("/api/events", eventRoutes)
+
+
+// app.get("/api/tasks/:id", (req, res) => {
+//     console.log(req.params.id)
+//     res.send(req.params.id)
+// })
 
 // app.post("/api/tasks/", (req, res) => {
 //     console.log(req.body)
